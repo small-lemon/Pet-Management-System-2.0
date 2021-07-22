@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间是接口的完整路径-->
+<mapper namespace="com.hopu.day8.mapper.PetMapper">
+
+    <!--配置查询 resultType返回的类型-->
+    <select id="selectAllPets" resultType="com.hopu.day8.entity.Pet">
+        select * from tb_petshop
+    </select>
+    <!--配置插入语句 id是方法名 parameterType是参数类型 #{stuName}是读取属性值-->
+    <insert id="addPet" parameterType="com.hopu.day8.entity.Pet">
+
+
+         insert into tb_petshop(id,name,gender,type,age,price,weight)
+             values(#{id},#{name},#{gender},#{type},#{age},#{price},#{weight})
+
+    </insert>
+    <update id="updatePetByName" parameterType="com.hopu.day8.entity.Pet">
+        update tb_petshop set id = #{id},name = #{name},gender = #{gender},type = #{type},age = #{age},price = #{price},weight = #{weight}
+        where  id = #{id}
+    </update>
+<!--//删除宠物-->
+    <delete id="removePetByName" parameterType="java.lang.String">
+        delete from tb_petshop where name = #{name}
+    </delete>
+<!--查找宠物-->
+    <select id="findPetByName" resultType="com.hopu.day8.entity.Pet">
+        select * from tb_petshop where name = #{name}
+    </select>
+<!--按年龄排序-->
+    <select id="sortByAge" resultType="com.hopu.day8.entity.Pet">
+       select * from tb_petshop order by age
+    </select>
+<!--按价格排序-->
+    <select id="sortByPrice" resultType="com.hopu.day8.entity.Pet">
+       select * from tb_petshop order by price
+    </select>
+</mapper>
